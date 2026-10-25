@@ -66,3 +66,8 @@ The weekly check opens no issue by itself: look at the *Feed availability* runs 
 
 An organisation can host its own file (same format) and point HiPe to it with the *Threat feed catalog* setting
 (`HIPE_SETTING_THREAT_FEED_CATALOG_URL`), or give it as a local file with `HIPE_THREAT_FEEDS_FILE`.
+
+## Licence
+
+The catalog is dedicated to the public domain under [CC0 1.0](LICENSE): reuse it freely, no attribution needed. The
+feeds it points to keep their own terms of use.
