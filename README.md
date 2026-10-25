@@ -6,7 +6,7 @@ first-run setup screen and through the **Catalog** button of the Threat feeds pa
 HiPe reads this file from:
 
 ```
-https://raw.githubusercontent.com/DNKreis/hipe-threat-feeds/main/threat-feeds.json
+https://raw.githubusercontent.com/DNKreis/hipe-threat-feeds/main/v1/threat-feeds.json
 ```
 
 at most once an hour, and only when an administrator opens the catalog (or completes the first-run setup with the
@@ -24,11 +24,13 @@ Sources are matched by `name`: never rename one, add a new entry instead.
 
 ## Format
 
-[`threat-feeds.json`](threat-feeds.json), checked against [`schema.json`](schema.json) on every push and pull request:
+[`v1/threat-feeds.json`](v1/threat-feeds.json), checked against [`v1/schema.json`](v1/schema.json) on every push and
+pull request:
 
 ```json
 {
   "version": 1,
+  "revision": "2026-10-25",
   "sources": [
     {
       "name": "feodotracker",
@@ -51,6 +53,24 @@ Sources are matched by `name`: never rename one, add a new entry instead.
 | `category` | yes | `malware`, `botnet`, `scanner`, `spam`, `brute_force`, `tor_exit` or `other`. |
 | `list` | no | `blacklist` (default), `greylist` or `whitelist`. |
 | `description` | no | One sentence, 300 characters at most, shown in the catalog. |
+| `minHipeVersion` | no | Oldest HiPe version able to use the source, e.g. `2.7.0`, when the fields alone do not tell. |
+
+At the top level, `version` is the structure of the file (see below) and `revision` the date of the last change of
+the content: update it with every change.
+
+## Versions and compatibility
+
+HiPe instances of different ages read this repository, so two kinds of change are told apart.
+
+**Additions, in the current version.** A new source, a new optional field, or a source using a value only newer HiPe
+versions know (a new `format`, `category` or `list`, or a `minHipeVersion`): older instances show that source as
+needing a newer version and keep using the others. Update `v1/schema.json` with the new values (it is generated from
+HiPe's own validation) and the HiPe release that supports them.
+
+**Breaking changes, in a new version.** Anything an older instance would misread (a renamed or removed field, a field
+whose meaning changes, a new required field): publish the new structure in a new directory (`v2/threat-feeds.json`,
+`version: 2`) and keep `v1/` maintained as long as HiPe releases reading it are in use. Each HiPe release reads the
+directory of the version it knows, and refuses a file of another version.
 
 ## Proposing a source
 
@@ -60,7 +80,7 @@ Open a pull request. A good candidate is:
 - maintained, with a low false positive rate;
 - served in one of the two formats above, without authentication.
 
-The weekly check opens no issue by itself: look at the *Feed availability* runs to spot a feed that stopped answering.
+A weekly *Feed availability* run downloads every feed: a failed run points to a source to fix or remove.
 
 ## Own catalog
 

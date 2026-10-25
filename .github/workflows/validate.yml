@@ -12,9 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Schema
-        run: npx --yes -p ajv-cli@5.0.0 -p ajv-formats@3.0.1 ajv validate --spec=draft2020 -c ajv-formats -s schema.json -d threat-feeds.json
-      - name: Unique names
+      - name: Schema and unique names, for each version
         run: |
-          duplicates=$(jq -r '[.sources[].name] | group_by(.) | map(select(length > 1) | .[0]) | .[]' threat-feeds.json)
-          if [ -n "$duplicates" ]; then echo "Duplicate source names: $duplicates"; exit 1; fi
+          for dir in v*/; do
+            echo "::group::$dir"
+            npx --yes -p ajv-cli@5.0.0 -p ajv-formats@3.0.1 ajv validate --spec=draft2020 -c ajv-formats -s "${dir}schema.json" -d "${dir}threat-feeds.json"
+            version=$(jq -r '.version' "${dir}threat-feeds.json")
+            if [ "v$version/" != "$dir" ]; then echo "${dir}threat-feeds.json holds version $version"; exit 1; fi
+            duplicates=$(jq -r '[.sources[].name] | group_by(.) | map(select(length > 1) | .[0]) | .[]' "${dir}threat-feeds.json")
+            if [ -n "$duplicates" ]; then echo "Duplicate source names in $dir: $duplicates"; exit 1; fi
+            echo "::endgroup::"
+          done
