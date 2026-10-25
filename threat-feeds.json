@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "name": "feodotracker",
+      "description": "abuse.ch Feodo Tracker: botnet command and control servers (Dridex, Emotet, QakBot…)",
+      "url": "https://feodotracker.abuse.ch/downloads/ipblocklist.txt",
+      "format": "plain",
+      "commentPrefix": "#",
+      "category": "botnet"
+    },
+    {
+      "name": "urlhaus",
+      "description": "abuse.ch URLhaus: hosts currently serving malware",
+      "url": "https://urlhaus.abuse.ch/downloads/text_online/",
+      "format": "urlHost",
+      "category": "malware"
+    },
+    {
+      "name": "blocklist.de",
+      "description": "blocklist.de: addresses reported for attacks (SSH, mail, web brute force) in the last 48 hours",
+      "url": "https://lists.blocklist.de/lists/all.txt",
+      "format": "plain",
+      "commentPrefix": "#",
+      "category": "brute_force"
+    },
+    {
+      "name": "firehol_level1",
+      "description": "FireHOL level 1: aggregate of the most reliable lists, with a very low false positive rate",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
+      "format": "plain",
+      "commentPrefix": "#",
+      "category": "other"
+    },
+    {
+      "name": "emerging_threats",
+      "description": "Proofpoint Emerging Threats: compromised hosts and known attackers",
+      "url": "https://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt",
+      "format": "plain",
+      "commentPrefix": "#",
+      "category": "other"
+    },
+    {
+      "name": "spamhaus_drop",
+      "description": "Spamhaus DROP: netblocks hijacked or leased by spam and cyber-crime operations",
+      "url": "https://www.spamhaus.org/drop/drop.txt",
+      "format": "plain",
+      "commentPrefix": ";",
+      "category": "other"
+    }
+  ]
+}

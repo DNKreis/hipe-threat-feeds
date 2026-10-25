@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/DNKreis/hipe-threat-feeds/main/schema.json",
+  "title": "HiPe threat feed catalog",
+  "description": "Sources an administrator can add in one click in HiPe (https://github.com/DNKreis/HiPe). Source names must be unique.",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number",
+      "const": 1
+    },
+    "sources": {
+      "minItems": 1,
+      "maxItems": 200,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://"
+          },
+          "format": {
+            "$ref": "#/$defs/ThreatFeedFormat"
+          },
+          "commentPrefix": {
+            "type": "string",
+            "maxLength": 5
+          },
+          "category": {
+            "$ref": "#/$defs/IpCategory"
+          },
+          "list": {
+            "$ref": "#/$defs/IpList"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "required": [
+          "name",
+          "url",
+          "format",
+          "category"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "version",
+    "sources"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ThreatFeedFormat": {
+      "type": "string",
+      "enum": [
+        "plain",
+        "urlHost"
+      ]
+    },
+    "IpCategory": {
+      "type": "string",
+      "enum": [
+        "malware",
+        "botnet",
+        "scanner",
+        "spam",
+        "brute_force",
+        "tor_exit",
+        "other"
+      ]
+    },
+    "IpList": {
+      "type": "string",
+      "enum": [
+        "whitelist",
+        "blacklist",
+        "greylist"
+      ]
+    }
+  }
+}

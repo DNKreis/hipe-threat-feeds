@@ -1,0 +1,27 @@
+name: Feed availability
+
+# Every feed of the catalog should still answer. A failure here means a source to fix or remove.
+on:
+  schedule:
+    - cron: '17 5 * * 1'
+  workflow_dispatch:
+  pull_request:
+    paths: [threat-feeds.json]
+
+permissions:
+  contents: read
+
+jobs:
+  feeds:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Download each feed
+        run: |
+          failed=0
+          while IFS=$'\t' read -r name url; do
+            status=$(curl -sS -L -o /dev/null -w '%{http_code}' --max-time 60 -A 'HiPe-CatalogCheck/1.0 (+https://github.com/DNKreis/hipe-threat-feeds)' "$url" || echo 000)
+            echo "$status $name $url"
+            case "$status" in 2*) ;; *) failed=1 ;; esac
+          done < <(jq -r '.sources[] | [.name, .url] | @tsv' threat-feeds.json)
+          exit $failed

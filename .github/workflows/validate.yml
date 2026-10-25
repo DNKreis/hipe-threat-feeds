@@ -1,0 +1,20 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Schema
+        run: npx --yes -p ajv-cli@5.0.0 -p ajv-formats@3.0.1 ajv validate --spec=draft2020 -c ajv-formats -s schema.json -d threat-feeds.json
+      - name: Unique names
+        run: |
+          duplicates=$(jq -r '[.sources[].name] | group_by(.) | map(select(length > 1) | .[0]) | .[]' threat-feeds.json)
+          if [ -n "$duplicates" ]; then echo "Duplicate source names: $duplicates"; exit 1; fi
