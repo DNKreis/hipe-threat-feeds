@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "revision": "2026-10-26",
+  "revision": "2026-10-27",
   "sources": [
     {
       "name": "blocklist.de",
@@ -9,6 +9,30 @@
       "format": "plain",
       "commentPrefix": "#",
       "category": "brute_force"
+    },
+    {
+      "name": "blocklist.de_ssh",
+      "description": "blocklist.de: addresses reported for SSH attacks in the last 48 hours",
+      "url": "https://lists.blocklist.de/lists/ssh.txt",
+      "format": "plain",
+      "commentPrefix": "#",
+      "category": "brute_force"
+    },
+    {
+      "name": "bruteforceblocker",
+      "description": "BruteForceBlocker: addresses detected brute forcing SSH servers (danger.rulez.sk)",
+      "url": "https://danger.rulez.sk/projects/bruteforceblocker/blist.php",
+      "format": "plain",
+      "commentPrefix": "#",
+      "category": "brute_force"
+    },
+    {
+      "name": "abuseipdb_s100_30d",
+      "description": "AbuseIPDB: addresses with a confidence of abuse of 100% over the last 30 days (daily export by borestad)",
+      "url": "https://raw.githubusercontent.com/borestad/blocklist-abuseipdb/main/abuseipdb-s100-30d.ipv4",
+      "format": "plain",
+      "commentPrefix": "#",
+      "category": "other"
     },
     {
       "name": "firehol_level1",
@@ -25,6 +49,38 @@
       "format": "plain",
       "commentPrefix": "#",
       "category": "other"
+    },
+    {
+      "name": "emerging_threats_compromised",
+      "description": "Proofpoint Emerging Threats: hosts known to be compromised",
+      "url": "https://rules.emergingthreats.net/blockrules/compromised-ips.txt",
+      "format": "plain",
+      "commentPrefix": "#",
+      "category": "other"
+    },
+    {
+      "name": "cins_army",
+      "description": "CINS Army: addresses with a poor reputation seen attacking Sentinel IPS sensors",
+      "url": "http://cinsscore.com/list/ci-badguys.txt",
+      "format": "plain",
+      "commentPrefix": "#",
+      "category": "other"
+    },
+    {
+      "name": "binary_defense",
+      "description": "Binary Defense: artillery threat intelligence feed, addresses seen attacking honeypots",
+      "url": "https://binarydefense.com/banlist.txt",
+      "format": "plain",
+      "commentPrefix": "#",
+      "category": "other"
+    },
+    {
+      "name": "tor_exits",
+      "description": "Tor exit nodes (FireHOL copy of the list of the Tor Project)",
+      "url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/tor_exits.ipset",
+      "format": "plain",
+      "commentPrefix": "#",
+      "category": "tor_exit"
     },
     {
       "name": "spamhaus_drop",
