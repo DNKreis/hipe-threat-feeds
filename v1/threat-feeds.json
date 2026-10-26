@@ -1,22 +1,7 @@
 {
   "version": 1,
-  "revision": "2026-10-25",
+  "revision": "2026-10-26",
   "sources": [
-    {
-      "name": "feodotracker",
-      "description": "abuse.ch Feodo Tracker: botnet command and control servers (Dridex, Emotet, QakBot…)",
-      "url": "https://feodotracker.abuse.ch/downloads/ipblocklist.txt",
-      "format": "plain",
-      "commentPrefix": "#",
-      "category": "botnet"
-    },
-    {
-      "name": "urlhaus",
-      "description": "abuse.ch URLhaus: hosts currently serving malware",
-      "url": "https://urlhaus.abuse.ch/downloads/text_online/",
-      "format": "urlHost",
-      "category": "malware"
-    },
     {
       "name": "blocklist.de",
       "description": "blocklist.de: addresses reported for attacks (SSH, mail, web brute force) in the last 48 hours",

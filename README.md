@@ -30,15 +30,15 @@ pull request:
 ```json
 {
   "version": 1,
-  "revision": "2026-10-25",
+  "revision": "2026-10-26",
   "sources": [
     {
-      "name": "feodotracker",
-      "description": "abuse.ch Feodo Tracker: botnet command and control servers",
-      "url": "https://feodotracker.abuse.ch/downloads/ipblocklist.txt",
+      "name": "blocklist.de",
+      "description": "blocklist.de: addresses reported for attacks in the last 48 hours",
+      "url": "https://lists.blocklist.de/lists/all.txt",
       "format": "plain",
       "commentPrefix": "#",
-      "category": "botnet"
+      "category": "brute_force"
     }
   ]
 }
